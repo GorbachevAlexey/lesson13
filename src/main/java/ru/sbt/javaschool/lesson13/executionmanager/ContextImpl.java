@@ -1,28 +1,35 @@
 package ru.sbt.javaschool.lesson13.executionmanager;
 
 public class ContextImpl implements Context {
+    private final FixedThreadPool threadPool;
+
+    public ContextImpl(FixedThreadPool threadPool) {
+        this.threadPool = threadPool;
+    }
+
     @Override
     public int getCompletedTaskCount() {
-        return 0;
+        return threadPool.getCompletedTaskCount();
     }
 
     @Override
     public int getFailedTaskCount() {
-        return 0;
-    }
-
-    @Override
-    public int getInterruptedTaskCount() {
-        return 0;
+        return threadPool.getFailedTaskCount();
     }
 
     @Override
     public void interrupt() {
+        threadPool.interrupt();
+    }
 
+    @Override
+    public int getInterruptedTaskCount() {
+        return threadPool.getInterruptedTaskCount();
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return threadPool.isFinished();
     }
 }
+
